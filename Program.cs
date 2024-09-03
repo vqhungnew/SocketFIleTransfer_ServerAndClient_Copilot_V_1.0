@@ -40,6 +40,9 @@ class FileTransfer
 
         Console.WriteLine("Waiting for a connection...");
         Socket handler = listener.Accept();
+
+        //Get Remote SOCKET;s IP Address    REF: https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.socket.remoteendpoint?view=net-8.0
+        Console.WriteLine("IP of remote endpoint:" + IPAddress.Parse(((IPEndPoint)handler.RemoteEndPoint).Address.ToString()));
         Console.WriteLine("Client connected.");
 
         // Specify the file to be sent
@@ -58,7 +61,7 @@ class FileTransfer
     private static void fileTransferClient()
     {
         /// Set up the client to connect to the server
-        IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000);
+        IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("192.168.111.8"), 11000);
         Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         sender.Connect(endPoint);
